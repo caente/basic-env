@@ -1,0 +1,6 @@
+#!/bin/sh
+docker run -t -i \
+  --mount type=volume,source=history,target=/root/.zsh_history \
+  --mount type=volume,source=workspace,target=/root/workspace \
+  -e HISTFILE='/root/.zsh_history/history' workhorse
+
