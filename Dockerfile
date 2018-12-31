@@ -93,6 +93,3 @@ RUN git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 
 RUN mkdir app
 
-COPY . app/
-
-
