@@ -77,11 +77,22 @@ RUN make CMAKE_BUILD_TYPE=Release
 RUN make install
 RUN rm -rf /usr/local/src/neovim
 
-# zsh config
-COPY configs/zsh/zshrc /root/.zshrc
-COPY configs/zsh/oh-my-zsh /root/.oh-my-zsh
-RUN echo '/usr/bin/zsh' >> /root/.bashrc
-COPY configs/tmux/tmux.conf /root/.tmux.conf
-RUN git clone https://github.com/tmux-plugins/tpm /root/.tmux/plugins/tpm
+RUN useradd -ms /bin/zsh caente
 
-WORKDIR /root
+USER caente
+
+ENV HOME=/home/caente
+WORKDIR $HOME
+
+# zsh config
+COPY configs/zsh/zshrc $HOME/.zshrc
+COPY configs/zsh/oh-my-zsh $HOME/.oh-my-zsh
+RUN echo '/usr/bin/zsh' >> $HOME/.bashrc
+COPY configs/tmux/tmux.conf $HOME/.tmux.conf
+RUN git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+
+RUN mkdir app
+
+COPY . app/
+
+
